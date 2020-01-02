@@ -1,0 +1,45 @@
+---
+layout: default
+---
+{%- assign cover = page.cover -%}
+{%- assign refs = page.refs -%}
+{%- capture title -%}
+    <h1 class="title">
+        {{ page.title }}
+    </h1>
+    {%- if page.sub -%}
+        <h2 class="subtitle">
+            {{ page.sub }}
+        </h2>
+    {%- endif -%}
+{%- if refs -%}
+<p class="lead references">
+    {% if refs.github %}
+        <a href="{{ refs.github }}" class="btn btn-simple" title="Source code is available" data-toggle="tooltip" data-placement="bottom" >GitHub</a>
+    {% endif %}
+    {% if refs.demo %}
+        <a href="{{ refs.demo }}" class="btn btn-simple" title="Demo is available" data-toggle="tooltip" data-placement="bottom" >Demo</a>
+    {% endif %}
+    {% if refs.doi %}
+        <a href="{{ refs.doi }}" class="btn btn-simple" data-placement="bottom" >DOI</a>
+    {% endif %}
+</p>
+{%- endif -%}
+{%- endcapture -%}
+<main class="min-vh-100">
+    {%- if cover.src -%}
+    <div class="post-cover d-flex" style="background-image: url({{cover.src}});">
+        <div class="post-title align-self-center container">
+            {{ title }}
+        </div>
+    </div>
+    {%- else -%}
+    <div class="post-title container">
+        {{ title }}
+    </div>
+    {%- endif -%}
+
+    <article class="post-body container">
+        {{ content }}
+    </article>
+</main>

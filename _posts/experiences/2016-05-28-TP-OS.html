@@ -1,0 +1,24 @@
+---
+layout: post-experience
+title: Implement 𝐎(𝟏) Scheduler
+sub: 운영체제 강의 설계 프로젝트
+categories: [experiences]
+tags: [undergraduate, term-project]
+meta:
+    languages: [C]
+    platforms: [Pintos]
+---
+<p>
+    Stanford University에서 개발된 교육용 운영체제인 Pintos의 alarm-priority test를 𝐎(𝟏) Scheduler를 구현하여 통과하는 것이 목표입니다. 수강생 중에서 유일하게 구현했고 test를 통과해서 최고점을 받았습니다. 
+</p>
+
+{%- capture attPath -%}{%- include get-att-path.html fd=page -%}{%- endcapture -%}
+
+<figure>
+    <img src="{{ attPath }}/test_result.png" alt="Test result">
+    <figcaption>Test result</figcaption>
+</figure>
+
+<p>
+    𝐎(𝟏)Scheduler는 Priority 수만큼의 List 배열 2 개를 Run Queue 객체로 관리합니다. 같은 priority의 원소들은 Round Robin 방식으로 CPU를 점유하며, Task를 끝낸 Active Processes의 원소는 Expired Process 배열로 이동됩니다. 만약 Active Processes에 원소가 하나도 남지 않게 되면, 두 배열이 Swap됩니다. 가장 높은 Priority를 찾을 때 배열을 순회하면 𝐎(𝑵)이지만, Bitmap을 이용하여 𝐎(𝟏)로 찾습니다. 
+</p>

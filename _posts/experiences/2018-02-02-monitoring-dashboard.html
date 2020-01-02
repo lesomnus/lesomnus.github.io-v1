@@ -1,0 +1,29 @@
+---
+layout: post-experience
+title: "모니터링 대시보드"
+categories: [experiences]
+meta:
+    languages: [JavaScript, HTML, CSS]
+    platforms: [Node.js]
+    thirdParties: [Vue.js, Express, Socket.io, jQuery, Semantic UI]
+---
+
+<p>
+    연구실에서 진행한 연구 과제의 일부로, 물리 머신과 가상 머신의 상태를 모니터링하는 Web 대시보드를 개발했습니다. Socket.io를 이용해 서버와 클라이언트의 연결을 유지하며 서버는 MySQL DB에 업데이트 되는 머신 정보를 실시간으로 클라이언트에 전송합니다. 클라이언트에서는 시각적 요소를 위해 `Chart.js`, `Progressbar.js` 등의 라이브러리를 이용해 그래프를 표현하였습니다.
+</p>
+
+{%- capture attPath -%}{%- include get-att-path.html fd=page -%}{%- endcapture -%}
+
+<figure>
+    <img src="{{ attPath }}/screenshot.png" alt="Screenshot of dashboard">
+    <figcaption>Screenshot of dashboard</figcaption>
+</figure>
+
+<figure class="float-md-right">
+    <img src="{{ attPath }}/card.png" alt="Card component"  style="width: 20rem;">
+    <figcaption>Card component</figcaption>
+</figure>
+
+<p>
+    머신의 실시간 모니터링 정보를 요약해서 Card 형태로 보여주는 컴포넌트는 Vue.js로 구현되었습니다. 상단 border의 색을 통해 시각적으로 머신의 상태를 나타내며 정보가 업데이트 될 때마다 머신의 이름 옆 dot를 깜빡여 사용자가 연결 상태를 확인할 수 있도록 했습니다.
+</p>

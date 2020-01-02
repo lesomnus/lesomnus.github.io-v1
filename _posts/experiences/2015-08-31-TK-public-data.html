@@ -1,0 +1,30 @@
+---
+layout: post-experience
+title: 위치 기반 갤러리 커뮤니티
+sub: 경상북도 공공데이터 활용 아이디어 발굴 및 앱 공모전 
+categories: [experiences]
+meta:
+    languages: [JavaScript, Java]
+    platforms: [Node.js, Android]
+    thirdParties: [Express]
+    award:
+        rate: 3
+        title: 앱 개발 부문 장려상
+---
+<p>
+    전국의 명소 데이터를 이용하여 커뮤니티 어플리케이션을 개발하였습니다. 서버는 장기적인 주기로 명소 공공데이터를 조회하여 명소의 이름으로 갤러리 게시판을 생성합니다. 이용자들은 해당 게시판에 명소에서 찍은 사진 이나 영상을 올려 공유할 수 있습니다. 제 역할은 REST API 형태로 게시판의 정보를 제공하는 서버와 Android에서 서버로부터 정보를 가져오는 모듈을 개발하는 것이었습니다. 이용자가 업로드하는 사진의 메타데이터와 미리 입력된 해당 명소의 GPS 값과 대조하여 실제 해당 위치에서 촬영된 것인지 확인함으로써 관련 없는 사진의 업로드를 필 터링하는 기능이 포함되어 있습니다. 
+</p>
+
+{%- capture attPath -%}{%- include get-att-path.html fd=page -%}{%- endcapture -%}
+
+<figure>
+    <div class="row">
+        <div class="col-6 text-right">
+            <img src="{{ attPath }}/screenshot1.png" title="1. Main menu">
+        </div>
+        <div class="col-6 text-left">
+            <img src="{{ attPath }}/screenshot2.png" title="2. Article">
+        </div>
+    </div>
+    <figcaption>UI of the Application</figcaption>
+</figure>

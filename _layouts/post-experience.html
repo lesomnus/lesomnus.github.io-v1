@@ -1,0 +1,32 @@
+---
+layout: post
+---
+{%- assign meta = page.meta -%}
+{%- if meta.languages or meta.thirdParties or meta.platforms -%}
+    <p class="lead text-center">
+        This project was developed
+        {% if meta.languages %}
+            in
+            {%- assign items = meta.languages | sort -%}
+            {% for item in items %}
+                {% include create-devicon.html name=item %}
+            {%- endfor -%}
+        {%- endif -%}
+        {% if meta.thirdParties %}
+            using
+            {%- assign items = meta.thirdParties | sort -%}
+            {% for item in items %}
+                {% include create-devicon.html name=item %}
+            {%- endfor -%}
+        {%- endif -%}
+        {% if meta.platforms %}
+            on
+            {%- assign items = meta.platforms | sort -%}
+            {% for item in items %}
+                {% include create-devicon.html name=item %}
+            {%- endfor -%}
+        {%- endif -%}
+        .
+    </p>
+{%- endif -%}
+{{ content }}

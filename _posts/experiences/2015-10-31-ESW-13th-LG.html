@@ -1,0 +1,27 @@
+---
+layout: post-experience
+title: Rummikub
+sub: 제 13회 임베디드 소프트웨어 경진대회 LG전자 부문
+categories: [experiences]
+cover:
+    src: /assets/posts/experiences/2015-10-31-ESW-13th-LG/cover.png
+meta:
+    languages: [JavaScript, HTML, CSS]
+    platforms: [Node.js, WebOS]
+    thirdParties: [jQuery, Express, Socket.io]
+---
+
+<p>
+    WebOS가 탑재된 스마트 TV에 게임을 개발하였습니다. 주요 특징은 스마트 TV를 공용 테이블로 하고, 플레이어는 각자의 스마트폰으로 개인 패를 받아 게임을 진행한다는 것입니다. 제가 구현한 부분은 Node.js로 서버에서 게임의 상태를 관리하고 Socket.io를 이용해 클라이언트에 게임의 상태를 실시간으로 전송, 클라이언트의 UI에 상태를 업데이트하는 것이었습니다. 또한 별도의 디자인 프레임워크를 사용하지않고 반응형 웹을 구현하였습니다.
+</p>
+
+<figure>
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/0e5oqbfFaTY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <figcaption>Play Demo</figcaption>
+</figure>
+
+<p>
+    위 시연 영상에서는 서로 다른 장치에서 플레이 가능하다는 것을 보여주기위해 각 플레이어가 각자의 메인 디스플레이를 보면서 플레이하고있지만, 개발취지에 맞게 하나의 큰 디스플레이에서 여러명의 플레이어가 동시에 플레이할 수도 있습니다.
+</p>

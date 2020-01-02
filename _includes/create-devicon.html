@@ -1,0 +1,26 @@
+{%- comment -%}
+<!-- make sure that name of the icon is included in the /_data/icons.yaml -->
+{%- endcomment -%}
+{%- assign title = include.title | default: include.name -%}
+{%- assign name = include.name | downcase -%}
+{%- case name -%}
+    {%- when 'css' -%}
+        {%- assign name = 'css3' -%}
+    {%- when 'html' -%}
+        {%- assign name = 'html5' -%}
+    {%- when 'c++' -%}
+        {%- assign name = 'cplusplus' -%}
+    {%- when 'c#' -%}
+        {%- assign name = 'csharp' -%}
+    {%- when '.net' -%}
+        {%- assign name = 'dot-net' -%}
+    {%- when 'node.js' -%}
+        {%- assign name = 'nodejs' -%}
+    {%- when 'vue.js' -%}
+        {%- assign name = 'vuejs' -%}
+{%- endcase -%}
+{%- if site.data.icons contains name -%}
+    <i class="devicon-{{ name }}-plain" data-toggle="tooltip" title="{{ title }}"></i>
+{%- else -%}
+    <span class="badge badge-simple">{{ title }}</span>
+{%- endif -%}

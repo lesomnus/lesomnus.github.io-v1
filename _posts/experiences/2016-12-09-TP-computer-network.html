@@ -1,0 +1,38 @@
+---
+layout: post-experience
+title: TCP 소켓을 사용한 채팅 프로그램의 구현
+sub: 컴퓨터 네트워크 강의 설계 프로젝트
+categories: [experiences]
+tags: [undergraduate, term-project]
+meta:
+    languages: [C++]
+---
+<p>
+    CLI 채팅 프로그램을 구현하는 것이었습니다. 복수개의 채팅방이 제공되어야하고 서로 다른 채팅방에 있어도 유저간 귓속말이 가능해야 합니다.
+</p>
+
+{%- capture attPath -%}{%- include get-att-path.html fd=page -%}{%- endcapture -%}
+
+<figure>
+    <div class="row">
+        <div class="col-6 text-right">
+            <img src="{{ attPath }}/screenshot1.png">
+        </div>
+        <div class="col-6 text-left">
+            <img src="{{ attPath }}/screenshot2.png">
+        </div>
+    </div>
+    <figcaption>UI of the Application</figcaption>
+</figure>
+
+<figure>
+    <img src="{{ attPath }}/overview.svg" style="width: 50rem;">
+    <figcaption>Functional Block Diagram</figcaption>
+</figure>
+
+<p>
+    위 Functional Block Diagram의 중앙 점선을 기준으로 왼쪽이 Server, 오른쪽이 Client입니다. Client가 Server에 연결되면 Server는 Socket 정보가 포함된 Guest instance를 생성합니다. Client에서 유저의 입력은 Encoder를 통해 Msg로 변환되어 전송되며, Server는 전송받은 Msg에 Socket ID를 포함시켜 Queue에 저장합니다. Processor는 Queue에서 Msg를 가져와 해석하고 대응되는 Task를 찾습니다. Task를 수행하기 위해 Msg에 포함된 정보가 사용되며 Manager를 통해 필요한 Guest instance를 가져와 함께 사용될 수 있습니다. Task를 수행하면서 새로운 Msg가 생성되고 적절한 Client로 전송됩니다. Client 또한 마찬가지로 전송받은 Msg를 Queue에 저장하고, Processors는 Queue에서 Msg를 가져와 해석하고 대응되는 Task를 찾아 수행합니다. 
+</p>
+<p>
+    유저는 ‘/’ 문자로 시작하는 명령어를 입력하여 상호작용할 수 있습니다. Encoder는 명령어를 대응되는 Byte로 치환하고 Server로 전송합니다. 대응되는 Byte는 Task의 번호와 일치하기 때문에 Processor는 Task를 constant time으로 찾을 수 있 습니다.
+</p>

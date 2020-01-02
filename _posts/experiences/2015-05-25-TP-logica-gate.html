@@ -1,0 +1,23 @@
+---
+layout: post-experience
+title: 동기 논리회로 설계
+sub: 논리 회로 강의 설계 프로젝트
+categories: [experiences]
+tags: [undergraduate, term-project]
+meta:
+    platforms: [Multisim]
+---
+<p>
+    논리 회로 소자와 발진기로 555-timer를 이용하여 1초마다 7-segment에서 숫자 0, 1, 3이 순서대로 반복적으로 출력되는 회로를 설계하고 제작하는 것이 목표입니다.
+</p>
+
+{%- capture attPath -%}{%- include get-att-path.html fd=page -%}{%- endcapture -%}
+
+<figure>
+    <img src="{{ attPath }}/overview.png">
+    <figcaption>Circuit Diagram</figcaption>
+</figure>
+
+<p>
+    과제의 핵심인 카운터회로는 2개의 NEGATIVE-EDGE-TRIGGERED J-K FLIP-FLOP 이용하여 mod-3인 상향 카운터를 구현하였습니다. 3은 2진수로 11<sub>(2)</sub> 이므로 카운터가 2를 출력할 때 두 FLIP-FLOP을 프리셋 시켜주었습니다. 이때 첫 번째 FLIP-FLOP의 Q와 두 번째 FLIP-FLOP ~Q의 입력을 받아 0을 출력하기 위해 OR GATE가 사용되었습니다.
+</p>

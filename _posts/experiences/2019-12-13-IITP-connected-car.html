@@ -1,0 +1,46 @@
+---
+layout: post-experience
+title: 커넥티드카 환경에서 이동성을 고려한 결함포용 작업처리 모델 설계와 모듈간 통신 인터페이스 구현
+sub: IITP, 커넥티드카 모빌리티 실시간 서비스를 위한 엣지 클라우드 플랫폼 개발
+categories: [experiences]
+meta:
+    languages: [C, C++, C#, Go, Java]
+    platforms: [Android, Docker, .NET]
+---
+<p>
+    연구실에서 진행한 IITP 연구과제로, 스마트폰을 엣지 노드로 사용해서 작업지연시간을 줄이는 것이 목표입니다. 제가 맡은 역할은 Road Side Unit (<abbr>RSU</abbr>)를 이용한 결함포용 작업처리 모델을 설계하고 데이터 제너레이터, On Board Unit (<abbr>OBU</abbr>), Mobile Edge Unit (<abbr>MEU</abbr>), 클라우드간 통신 인터페이스를 구현하는 것입니다.
+</p>
+
+{%- capture attPath -%}{%- include get-att-path.html fd=page -%}{%- endcapture -%}
+
+<figure>
+    <img src="{{ attPath }}/overview.svg">
+    <figcaption>Environment Overview</figcaption>
+</figure>
+
+<p> 본 프로젝트에서 가정하는 환경은 다음과 같습니다. </p>
+
+<ol>
+    <li>미리 수집된 실제 차량 센서 데이터를 데이터 제너레이터가 OBU로 전송하며 OBU는 해당 데이터를 MEU로 전송합니다.</li>
+    <li>MEU는 OBU로부터 전송받은 센서 데이터가 정확한지 검사하고, 센서 데이터에 근거하여 차량의 이상여부를 판단합니다.</li>
+    <li>MEU는 OBU로부터 전송받은 데이터를 축적하다가 일정 주기로 클라우드에 압축하여 전송합니다.</li>
+    <li>MEU가 차량의 이상여부를 감지한 경우 OBU로 이 사실을 알리고 OBU는 인접한 다른 OBU에 알립니다.</li>
+</ol>
+
+<p>
+    OBU는 데이터 제너레이터, MEU와 통신하기 위한 서버(Switcher)를 실행하며 Go로 구현하였습니다. OBU간 통신은 인터페이스가 C로만 제공되어서 C로 통신 모듈(Forwarder)을 구현했습니다. Switcher는 Forwarder를 자식 프로세스로 생성하여 표준 입출력 스트림을 통해 다른 OBU와 통신이 가능하도록 구현했습니다. 데이터 제너레이터는 현재 전송되는 데이터와 데이터를 조작할 수 있는 GUI를 제공하는 프로그램으로, .NET에서 C#으로 개발했습니다. MEU는 Android에서 JAVA로 개발했습니다. 데이터 제너레이터-OBU-MEU간 통신은 개발의 편리와 연결 유지를 위해 WebSocket 프로토콜을 사용했습니다. MEU-클라우드간 통신은 HTTP 프로토콜을 사용했습니다.
+</p>
+
+<p>
+    위 환경에서 사용자의 스마트폰인 MEU가 정상적으로 작동하지 않는 경우, 즉 결함이 발생할 수 있는데, MEU가 결함이 발생한 상황에서도 OBU의 센서 데이터를 처리하고 클라우드로 전송할 수 있는 결함포용 모델을 RSU를 이용해서 설계했습니다.
+</p>
+
+<ol>
+    <li>OBU는 MEU와 연결이 끊길 경우 센서 데이터를 RSU로 전송합니다.</li>
+    <li>RSU는 커버리지 내의 여러 OBU와 통신하며 데이터 처리를 대행합니다.</li>
+    <li>차량이 다른 커버리지의 RSU로 넘어갈 수 있으므로, RSU는 인접 RSU와 통신하며 필요한 경우 데이터를 이전합니다.</li>
+</ol>
+
+<p>
+    OBU에서 Switcher는 상술한대로 MEU와 WebSocket으로 통신합니다. WebSocket 스펙에서 정의하는 Ping-Pong 프레임을 동적인 주기로 MEU와 주고 받도록 Switcher를 구현하여 연결 상태를 메세지 전송 지연의 1/2의 시간안에 감지할 수 있도록 했습니다. 만약 연결이 끊긴 경우 끊기기 직전의 데이터를 RSU로 재전송합니다. RSU는 MEU에서 결함이 발생한 경우에만 자원이 사용되므로 개인 연구목적의 Serverless 플랫폼인 <a href="{% link _posts/experiences/2019-07-26-Mee6aaS.html %}">Mee6aaS</a>를 적용했습니다.
+</p>

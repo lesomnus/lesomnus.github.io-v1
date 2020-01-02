@@ -1,0 +1,26 @@
+---
+layout: post-experience
+title:  Simulator for Packet Forwarding
+sub: 프로그래밍 언어 강의 설계 프로젝트
+categories: [experiences]
+tags: [undergraduate, term-project]
+meta:
+    languages: [C]
+---
+<p>
+    Dijkstra Algorithm을 이용해 packet forwarding을 simulate 하는 것이 목표입니다. Graph 자료구조로 네트워크를 모델링 했고, Router는 Dijkstra Algorithm으로 미리 계산된 Forwarding 테이블에 따라 입력된 packet을 전달합니다. 또한 packet에는 우선순위가 부여되며 Router는 Priority Heap을 이용해 우선순위가 높은 packet이 먼저 전달되도록 하였습니다. 
+</p>
+
+{%- capture attPath -%}{%- include get-att-path.html fd=page -%}{%- endcapture -%}
+
+<figure>
+    <div class="row">
+        <div class="col-6">
+            <img src="{{ attPath }}/screenshot1.png" title="1. Calculate forwarding table">
+        </div>
+        <div class="col-6">
+            <img src="{{ attPath }}/screenshot2.png" title="2. Packet forwarding process">
+        </div>
+    </div>
+    <figcaption>Rsult</figcaption>
+</figure>

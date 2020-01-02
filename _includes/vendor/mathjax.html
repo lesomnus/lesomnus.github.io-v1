@@ -1,0 +1,16 @@
+<script>
+MathJax = {
+    startup: {
+        typeset: false,
+        ready: () => {
+            MathJax.startup.defaultReady();
+            MathJax.startup.promise.then(() => {
+                const trg = document.querySelectorAll('.math');
+                if(trg.length === 0){ return; }
+                MathJax.typeset(trg);
+            });
+        }
+  }
+}
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS_HTML"></script>

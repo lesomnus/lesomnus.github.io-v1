@@ -1,0 +1,4 @@
+{%- assign fd = include.fd -%}
+{%- assign extSize = fd.ext | size -%}
+{%- assign nameSize = fd.path | size | minus: extSize | minus: 1 -%}
+/assets/{{ fd.path | slice: 1, nameSize }}

@@ -1,0 +1,69 @@
+---
+layout: post-experience
+title: 영상 처리 모듈, 영상 출력 장치 및 방법 특허
+refs:
+    github: https://github.com/lesomnus/senior-project
+    doi: https://doi.org/10.8080/1020170079328
+categories: [experiences]
+meta:
+    languages: [C++]
+    thirdParties: [OpenCV]
+---
+<p>
+    멀티미디어 신호 처리 연구실에서 공부한 내용을 바탕으로 졸업 작품을 구상하던 중, 아이디어가 괜찮다고 생각되어 특 허를 출원하게 되었습니다. 특허의 주 내용은, 빔 프로젝터 의 빔으로부터 발표자의 시력을 보호하는 방법에 관한 내용 입니다. 방법을 요약하자면, 빔 프로젝터에 영사 영역 방향 으로 카메라를 연결하고, 촬영된 사진에서 배경과 발표자를 분리한 뒤 이후 영사될 영상에서 발표자 영역을 어둡게 만 듦으로써 발표자의 시력이 보호되는 것입니다.
+</p>
+
+{%- capture attPath -%}{%- include get-att-path.html fd=page -%}{%- endcapture -%}
+
+<figure>
+    <div class="row">
+        <div class="col-6 col-md-3">
+            <img src="{{ attPath }}/flow1.png" title="1. Input image of camera">
+        </div>
+        <div class="col-6 col-md-3">
+            <img src="{{ attPath }}/flow2.png" title="2. Perspective projected image">
+        </div>
+        <div class="col-6 col-md-3">
+            <img src="{{ attPath }}/flow3.png" title="3. Detection of foreground">
+        </div>
+        <div class="col-6 col-md-3">
+            <img src="{{ attPath }}/flow4.png" title="4. Output image of the image processor">
+        </div>
+    </div>
+    <figcaption>Figure 1. Workflow of the image processor</figcaption>
+</figure>
+
+<figure class="float-lg-right">
+    <img src="{{ attPath }}/overview.svg" alt="System Block Diagram" style="width: 40rem;">
+    <figcaption>Figure 2. System Block Diagram</figcaption>
+</figure>
+
+<p>
+    Figure 2의 Image Processor는 Camera의 입력에서 전경을 검출하여 마스 크를 만들고 Streamer의 입력과 합성하여 Beam Projector로 출력합니다. 하지만 Figure 1의 첫번째 그림과 같이 카메라 입력에서 Region of Interest (ROI)인 Beam Projector의 영사 화면은 왜곡되어 있으므로 두번째 그림으로 Perspective Projection을 해주어야 합니다. 이제 ROI에서 전경을 검출하여 마스크를 만들면 세번째 그림을 얻을 수 있 습니다. 마지막으로 네번째 그림과 같이 Streamer의 최신 입력과 합성하여 Beam Projector로 출력하게 됩니다. 
+</p>
+
+<figure>
+    <img src="{{ attPath }}/dataflow.svg" alt="Functional Block Diagram" style="width: 100%">
+    <figcaption>Figure 3. Functional Block Diagram</figcaption>
+</figure>
+
+<p>
+    졸업 작품으로 심사를 받아야 했기 때문에 실제로 구현까지 했습니다. Streamer와 Image Processor 부분을 구현했으며 C++ 로 작성했고 OpenCV 라이브러리를 사용했습니다. Streamer는 HDMI의 라이선스 문제로 입력 데이터를 얻을 수 없어 TCP/IP socket으로 영상 전송을 직접 구현하였습니다. Figure 3은 구현물의 블록 다이어그램입니다. 중앙을 기준으로 왼쪽이 Steamer, 오른쪽 이 Image Processor입니다. 졸업 작품인 만큼 외부 라이브러리인 OpenCV의 행렬 클래스와 이미지 인코딩/디코딩 함수만 사용하였고, 핵심 이미지 처리 함수들(Perspective Projection, Corner Detection 등)은 직접 구현하였습니다.
+</p>
+
+<p class="math">
+    카메라 입력의 왜곡을 교정하기 위해 Perspective Projection을 사용했습니다. 평면 물체는 3차원 공간에서의 다른 2차원 평면으로 임의의 원근 투영 변환 관계는 호모그래피 \(H\) 로 표현될 수 있습니다. 어떤 평면 위의 점 \((x,y)\)를 다른 평면의의 점 \((x',y')\)로 대응 시키는 식은 다음과 같습니다.
+</p>
+
+<p class="math">
+    \[
+    w
+    \begin{pmatrix} x' \\ y' \\ 1 \end{pmatrix} =
+    \begin{pmatrix} a & b & c \\ d & e & f \\ g & h & 1 \end{pmatrix}\begin{pmatrix} x \\ y \\ 1 \end{pmatrix} H
+    \begin{pmatrix} x \\ y \\ 1 \end{pmatrix}
+    \]
+</p>
+
+<p class="math">
+    알아야 할 변수가 8개이므로, 평면 \(A\) 위의 점 4개에 대응되는 평면 \(B\) 위의 점 4개를 알면 \(H\)를 구할 수 있습니다. <code>PerspectiveProjector</code> 클래스는 해당 8개의 점을 입력으로 받아 \(H\)를 미리 계산해 둡니다. \(H\)를 계산하는 코드는 <a href="https://github.com/lesomnus/senior-project/blob/0e71375836cc3d91c9279027fb3dc2de7008ede9/client/PerspectiveProjector.hpp#L86-L128">여기</a>에서 확인 할 수 있습니다.
+</p>

@@ -1,0 +1,217 @@
+---
+layout: default
+---
+
+<main class="container my-5">
+    <section class="text-center">
+        <header>
+            <h1 class="display-4">황승현</h1>
+            <p class="lead">Seunghyun Hwang</p>
+            <p class="lead"><a href="mailto:lesomnus@gmail.com">lesomnus@gmail.com</a></p>
+        </header>
+    </section>
+
+    <section>
+        <h2>Education</h2>
+        <ul class="dl-table">
+            <li>
+                <dl>
+                    <dt>컴퓨터과학과 소프트웨어 전공</dt>
+                    <dd>
+                        <time datetime="2018-03-01">2018.03.01</time>~
+                        <time datetime="2020-02-27">2020.02.27</time>
+                    </dd>
+                    <dd>고려대학교 정보대학</dd>
+                    <dd>4.36/4.50</dd>
+                </dl>
+            </li>
+            <li>
+                <dl>
+                    <dt>정보통신공학심화 공학사</dt>
+                    <dd>
+                        <time datetime="2014-03-01">2014.03.01</time>~
+                        <time datetime="2018-02-02">2018.02.02</time>
+                    </dd>
+                    <dd>영남대학교 기계IT대학</dd>
+                    <dd>4.23/4.50 • 2/45</dd>
+                </dl>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Conference Presentation</h2>
+        {%- assign pubs = site.data.cv.pub -%}
+        <ul>
+            {%- for pub in pubs -%}
+            <li>
+                {{ pub.authors | join: ", " }},
+                <em>"{{ pub.title }}"</em>,
+                {{ pub.publisher }},
+                {%- if pub.pages -%}
+                Vol.{{ pub.volume }}, Issue {{ pub.number }}.
+                <time datetime="{{ pub.year }}">{{ pub.year }}</time>.
+                pp.{{ pub.pages | join: "-" }}.
+                {% else %}
+                <time datetime="{{ pub.year }}">{{ pub.year }}</time>. (Accepted)
+                {%- endif -%}
+            </li>
+            {%- endfor -%}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Honors and Awards</h2>
+
+        <ul class="dl-table">
+            <li>
+                <dl>
+                    <dt>Best Poster Runner-up</dt>
+                    <dd>
+                        <time datetime="2019">2019</time>
+                    </dd>
+                    <dd>16th IEEE International Conference on Mobile Ad-Hoc and Smart Systems</dd>
+                </dl>
+            </li>
+            <li>
+                <dl>
+                    <dt>학업성적우수 장학금</dt>
+                    <dd>
+                        <time datetime="2014">2014</time>~
+                        <time datetime="2017">2017</time>
+                    </dd>
+                    <dd>영남대학교</dd>
+                </dl>
+            </li>
+            <li>
+                <dl>
+                    <dt>SL서봉재단 학업보조 장학금</dt>
+                    <dd>
+                        <time datetime="2016">2016</time>~
+                        <time datetime="2017">2017</time>
+                    </dd>
+                    <dd>SL서봉재단</dd>
+                </dl>
+            </li>
+            <li>
+                <dl>
+                    <dt>제14회 임베디드 소프트웨어 경진대회 최우수상</dt>
+                    <dd>
+                        <time datetime="2016">2016</time>
+                    </dd>
+                    <dd>삼성전자 부문, 삼성전자 주식회사 수여</dd>
+                </dl>
+            </li>
+            <li>
+                <dl>
+                    <dt>공공데이터 활용 아이디어 발굴 및 앱 공모전 장려상</dt>
+                    <dd>
+                        <time datetime="2015">2015</time>
+                    </dd>
+                    <dd>앱 개발 부문, 대구대학교 수여</dd>
+                </dl>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Technical Skills</h2>
+        <dl>
+            <dt>Languages</dt>
+            <dd>
+                {{ "C,C++14,C#,Go,JavaScript,TypeScript,Java,HTML,CSS,SASS" | split: "," | sort | join: " • " }}
+            </dd>
+            <dt>Platforms</dt>
+            <dd>
+                {{ ".NET,Android,Docker,Kubernetes,MongoDB,Tizen,CircleCI,Redis,Node.js,MySQL,npm,Kafka" | split: "," | sort | join: " • " }}
+            </dd>
+            <dt>Third-parties</dt>
+            <dd>
+                {{ "Babel,Bootstrap,Docker SDK,Express,gRPC,Gulp,jQuery,Lodash,OpenCV,Protocol Buffers,Semantic UI,Socker.io,Vue.js,React,Redux,webpack" | split: "," | sort | join: " • " }}
+            </dd>
+        </dl>
+    </section>
+
+    <section id="sect-experiences">
+        <span id="btn-show-tp" class="btn btn-simple float-right d-print-none">
+            학부 설계 프로젝트 보이기
+        </span>
+        <h2>Experiences</h2>
+        {%- assign exps = site.categories.experiences -%}
+        {%- assign year = exps[0].date | date: "%Y" -%}
+
+        <h6>{{ year }}</h6>
+        <ul>
+            {%- comment -%}<!-- iterate experiences -->{%- endcomment -%}
+            {%- for exp in exps -%}
+            {%- assign y = exp.date | date: "%Y"  -%}
+
+            {%- comment -%}<!-- check if different post of year -->{%- endcomment -%}
+            {%- if year == y -%}
+            {%- assign isNewYear = false -%}
+            {%- else -%}
+            {%- assign isNewYear = true -%}
+            {%- assign year = y -%}
+            {%- endif -%}
+
+            {%- comment -%}<!-- start new list with new year -->{%- endcomment -%}
+            {%- if isNewYear -%}
+        </ul>
+
+        <h6>{{ year }}</h6>
+        <ul>
+            {%- endif -%}
+            <li>
+                <article {% if exp.tags.size > 0 %}
+                    data-tags='{{ exp.tags | jsonify }}'
+                    {% for tag in exp.tags %}
+                        {%- if tag == 'term-project' -%}
+                        style="display: none;"
+                            {% break %}
+                        {%- endif -%}
+                    {% endfor %}
+                {% endif %}>
+                    <header>
+                        <h5 class="title">
+                            <a href="{{ exp.url }}">{{ exp.title }}</a>
+                            {%- if exp.meta.award -%}
+                            <i class="d-print-none fas fa-star" data-toggle="tooltip" data-rate="{{ exp.meta.award.rate }}" title="{{ exp.meta.award.title }}"></i>
+                            {%- endif -%}
+                        </h5>
+                        <h6 class="lead">{{ exp.sub }}</h6>
+                        {%- if exp.meta.award or exp.refs -%}
+                        <ul class="d-none d-print-block">
+                            {%- if exp.meta.award -%}
+                            <li>
+                                <dl>
+                                    <dt>Awarded</dt>
+                                    <dd>{{ exp.meta.award.title }}</dd>
+                                </dl>
+                            </li>
+                            {%- endif -%}
+                            {%- if exp.refs.doi -%}
+                            <li>
+                                <dl>
+                                    <dt>DOI</dt>
+                                    <dd>{{ exp.refs.doi }}</dd>
+                                </dl>
+                            </li>
+                            {%- endif -%}
+                            {%- if exp.refs.github -%}
+                            <li>
+                                <dl>
+                                    <dt>GitHub</dt>
+                                    <dd>{{ exp.refs.github }}</dd>
+                                </dl>
+                            </li>
+                            {%- endif -%}
+                        </ul>
+                        {%- endif -%}
+                    </header>
+                    {{ exp.excerpt  }}
+                </article>
+            </li>
+            {%- endfor -%}
+        </ul>
+    </section>
+</main>

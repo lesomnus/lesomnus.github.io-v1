@@ -1,0 +1,40 @@
+---
+layout: post-experience
+title: 스마트워치 요리 보조 어플리케이션
+sub: 제 14회 임베디드 소프트웨어 경진대회
+categories: [experiences]
+meta:
+    languages: [JavaScript, HTML, CSS]
+    platforms: [Node.js, Tizen, MongoDB]
+    thirdParties: [jQuery, Express]
+    award:
+        rate: 1
+        title: 삼성전자 부문 최우수상
+---
+<p>
+    스마트워치를 이용한 요리 보조 어플리케이션입니다. 시스템은 크게 요리 레시피를 저장할 DB와 이를 REST로 제공할 서버, 스마트워치 어플리케이션, 스마트폰 어플리케이션 4개로 구분됩니다. 제가 구현한 부분은 REST API를 제공하는 서버와 스마트워치 어플리케이션이며, 그 외 컴포넌트간 메세지의 스펙, 스마트폰 어플리케이션과 스마트워치 간의 화면 동기화 프로토콜을 정의했습니다.
+</p>
+
+{%- capture attPath -%}{%- include get-att-path.html fd=page -%}{%- endcapture -%}
+
+<figure>
+    <div class="row">
+        <div class="col-6 col-md-3">
+            <img src="{{ attPath }}/screenshot1.png" alt="1. Main menu">
+        </div>
+        <div class="col-6 col-md-3">
+            <img src="{{ attPath }}/screenshot2.png" alt="2. Start of cook">
+        </div>
+        <div class="col-6 col-md-3">
+            <img src="{{ attPath }}/screenshot3.png" alt="3. Timer feature">
+        </div>
+        <div class="col-6 col-md-3">
+            <img src="{{ attPath }}/screenshot4.png" alt="4. Recipe with description">
+        </div>
+    </div>
+    <figcaption>UI of the Application</figcaption>
+</figure>
+
+<p>
+    서버는 Express로 구현하고 요리 레시피는 MongoDB에 저장했습니다. 스마트워치는 Tizen OS에서 Web 언어를 이용하여 개발하였습니다. 특히 Tizen에서 제공하는 TAU 라이브러리에 몇 가지 사소한 문제가 있어 문제 발생 부분과 해결방안을 리포팅 하기도 했습니다.
+</p>

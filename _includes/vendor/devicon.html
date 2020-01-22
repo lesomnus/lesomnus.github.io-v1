@@ -1,2 +1,7 @@
-<link rel="stylesheet" href="/assets/styles/vendor/devicon/devicon.min.css">
-<link rel="stylesheet" href="/assets/styles/vendor/devicon/devicon-colors.css">
+{% if jekyll.environment == "production" %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/devicon/2.2/devicon.min.css" integrity="sha256-4LcvM6Kisp2RIksJbr9MdLdjZrVxALxPqi0SwWmymPI=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/devicon/2.2/devicon-colors.min.css" integrity="sha256-ivG65lKLDSMVeK6SiRBFwIhEQB9k88l2wwijBHq1bBc=" crossorigin="anonymous" />
+{% else %}
+<link rel="stylesheet" href="/assets/styles/vendor/devicon/2.2/devicon.css">
+<link rel="stylesheet" href="/assets/styles/vendor/devicon/2.2/devicon-colors.css">
+{% endif %}

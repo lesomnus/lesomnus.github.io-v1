@@ -127,26 +127,53 @@ layout: default
             </dd>
             <dt>Third-parties</dt>
             <dd>
-                {{ "Babel,Bootstrap,Docker SDK,Express,gRPC,Gulp,jQuery,Lodash,OpenCV,Protocol Buffers,Semantic UI,Socker.io,Vue.js,React,Redux,webpack" | split: "," | sort | join: " • " }}
+                {{ "Babel,Bootstrap,Docker SDK,Express,gRPC,Gulp,jQuery,Lodash,OpenCV,Protocol Buffers,Semantic UI,Socket.io,Vue.js,React,Redux,webpack" | split: "," | sort | join: " • " }}
             </dd>
         </dl>
     </section>
 
     <section id="sect-experiences">
-        <span id="btn-show-tp" class="btn btn-simple float-right d-print-none">
-            학부 설계 프로젝트 보이기
-        </span>
+        <div class="dropdown float-right d-print-none">
+            <button type="button" class="btn btn-simple dropdown-toggle d-print-none" data-toggle="dropdown">
+                <i class="fas fa-filter"></i>
+            </button>
+            <div id="dropdown-experiences-filter-menu" class="dropdown-menu dropdown-menu-right"
+                style="margin-top: 7.4px;">
+                <span class="dropdown-item">
+                    <label class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" data-tag="paper" checked>
+                        <span class="custom-control-label">논문</span>
+                    </label>
+                </span>
+                <span class="dropdown-item">
+                    <label class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" data-tag="contest" checked>
+                        <span class="custom-control-label">공모전</span>
+                    </label>
+                </span>
+                <span class="dropdown-item">
+                    <label class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" data-tag="term-project">
+                        <span class="custom-control-label">학부 설계 프로젝트</span>
+                    </label>
+                </span>
+            </div>
+        </div>
+
         <h2>Experiences</h2>
         {%- assign exps = site.categories.experiences -%}
         {%- assign year = exps[0].date | date: "%Y" -%}
 
-        <h6>{{ year }}</h6>
-        <ul>
-            {%- comment -%}<!-- iterate experiences -->{%- endcomment -%}
+        <section>
+            <h6>{{ year }}</h6>
+
+            {%- comment -%}
+            <!-- iterate experiences -->{%- endcomment -%}
             {%- for exp in exps -%}
             {%- assign y = exp.date | date: "%Y"  -%}
 
-            {%- comment -%}<!-- check if different post of year -->{%- endcomment -%}
+            {%- comment -%}
+            <!-- check if different post of year -->{%- endcomment -%}
             {%- if year == y -%}
             {%- assign isNewYear = false -%}
             {%- else -%}
@@ -154,64 +181,56 @@ layout: default
             {%- assign year = y -%}
             {%- endif -%}
 
-            {%- comment -%}<!-- start new list with new year -->{%- endcomment -%}
+            {%- comment -%}
+            <!-- start new list with new year -->{%- endcomment -%}
             {%- if isNewYear -%}
-        </ul>
-
-        <h6>{{ year }}</h6>
-        <ul>
+        </section>
+        <section>
+            <h6>{{ year }}</h6>
             {%- endif -%}
-            <li>
-                <article {% if exp.tags.size > 0 %}
-                    data-tags='{{ exp.tags | jsonify }}'
-                    {% for tag in exp.tags %}
-                        {%- if tag == 'term-project' -%}
-                        style="display: none;"
-                            {% break %}
+            <article {% if exp.tags.size > 0 %} data-tags='{{ exp.tags | join: "," }}' {% for tag in exp.tags %}
+                {%- if tag == 'term-project' -%} class="d-none" {% break %} {%- endif -%} {% endfor %} {% endif %}>
+                <header>
+                    <h5 class="title">
+                        <a href="{{ exp.url }}">{{ exp.title }}</a>
+                        {%- if exp.meta.award -%}
+                        <i class="d-print-none fas fa-star" data-toggle="tooltip" data-rate="{{ exp.meta.award.rate }}"
+                            title="{{ exp.meta.award.title }}"></i>
                         {%- endif -%}
-                    {% endfor %}
-                {% endif %}>
-                    <header>
-                        <h5 class="title">
-                            <a href="{{ exp.url }}">{{ exp.title }}</a>
-                            {%- if exp.meta.award -%}
-                            <i class="d-print-none fas fa-star" data-toggle="tooltip" data-rate="{{ exp.meta.award.rate }}" title="{{ exp.meta.award.title }}"></i>
-                            {%- endif -%}
-                        </h5>
-                        <h6 class="lead">{{ exp.sub }}</h6>
-                        {%- if exp.meta.award or exp.refs -%}
-                        <ul class="d-none d-print-block">
-                            {%- if exp.meta.award -%}
-                            <li>
-                                <dl>
-                                    <dt>Awarded</dt>
-                                    <dd>{{ exp.meta.award.title }}</dd>
-                                </dl>
-                            </li>
-                            {%- endif -%}
-                            {%- if exp.refs.doi -%}
-                            <li>
-                                <dl>
-                                    <dt>DOI</dt>
-                                    <dd>{{ exp.refs.doi }}</dd>
-                                </dl>
-                            </li>
-                            {%- endif -%}
-                            {%- if exp.refs.github -%}
-                            <li>
-                                <dl>
-                                    <dt>GitHub</dt>
-                                    <dd>{{ exp.refs.github }}</dd>
-                                </dl>
-                            </li>
-                            {%- endif -%}
-                        </ul>
+                    </h5>
+                    <h6 class="lead">{{ exp.sub }}</h6>
+                    {%- if exp.meta.award or exp.refs -%}
+                    <ul class="d-none d-print-block">
+                        {%- if exp.meta.award -%}
+                        <li>
+                            <dl>
+                                <dt>Awarded</dt>
+                                <dd>{{ exp.meta.award.title }}</dd>
+                            </dl>
+                        </li>
                         {%- endif -%}
-                    </header>
-                    {{ exp.excerpt  }}
-                </article>
-            </li>
+                        {%- if exp.refs.doi -%}
+                        <li>
+                            <dl>
+                                <dt>DOI</dt>
+                                <dd>{{ exp.refs.doi }}</dd>
+                            </dl>
+                        </li>
+                        {%- endif -%}
+                        {%- if exp.refs.github -%}
+                        <li>
+                            <dl>
+                                <dt>GitHub</dt>
+                                <dd>{{ exp.refs.github }}</dd>
+                            </dl>
+                        </li>
+                        {%- endif -%}
+                    </ul>
+                    {%- endif -%}
+                </header>
+                {{ exp.excerpt  }}
+            </article>
             {%- endfor -%}
-        </ul>
+        </section>
     </section>
 </main>

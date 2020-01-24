@@ -7,6 +7,8 @@
 @import "vendor/bootstrap/4.4.1/badge";
 @import "vendor/bootstrap/4.4.1/button-group";
 @import "vendor/bootstrap/4.4.1/buttons";
+@import "vendor/bootstrap/4.4.1/custom-forms";
+@import "vendor/bootstrap/4.4.1/dropdown";
 @import "vendor/bootstrap/4.4.1/images";
 @import "vendor/bootstrap/4.4.1/print";
 @import "vendor/bootstrap/4.4.1/type";
@@ -245,5 +247,21 @@ main {
                 display: inline;
             }
         }
+    }
+}
+
+#sect-experiences {
+    > section {
+        page-break-inside: avoid;
+    }
+
+    > section > article {
+        padding-left: 1rem;
+    }
+}
+
+#dropdown-experiences-filter-menu {
+    label {
+        margin-bottom: 0;
     }
 }

@@ -2,10 +2,12 @@
   authors: [Seunghyun Hwang, Kwangsik Chung, Joonmin Gil, Heonchang Yu, Eunyoung Lee]
   publisher: The 3rd International conference on Interdisciplinary research on Computer Science, Psychology, and Education (ICICPE’ 2019)
   year: 2019
+  pages: [31, 34]
 - title: Implementation of Low-latency Message Delivery for Serverless based Workflow
   authors: [Seunghyun Hwang, Heeseock Choi, Heonchang Yu]
   publisher: The 16th IEEE International Conference on Mobile Ad-Hoc and Smart Systems (IEEE MASS 2019)
   year: 2019
+  pages: [170, 171]
 - title: Serverless 기반 워크플로 실행에서 Cold Start 완화를 위한 런타임 인터페이스에 관한 연구
   authors: [황승현, 강지훈, 유헌창]
   publisher: 한국정보처리학회 추계학술발표대회 논문집  

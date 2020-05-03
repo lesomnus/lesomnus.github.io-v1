@@ -12,13 +12,29 @@ layout: default
     </section>
 
     <section>
+        <h2>Work Experiences</h2>
+        <ul class="dl-table">
+            <li>
+                <dl>
+                    <dt>ThorDrive</dt>
+                    <dd>
+                        <time datetime="2020-03-01">2020.03.01</time> ~
+                    </dd>
+                    <dd>SLAM</dd>
+                    <dd>선임연구원</dd>
+                </dl>
+            </li>
+        </ul>
+    </section>
+
+    <section>
         <h2>Education</h2>
         <ul class="dl-table">
             <li>
                 <dl>
                     <dt>컴퓨터과학과 소프트웨어 전공</dt>
                     <dd>
-                        <time datetime="2018-03-01">2018.03.01</time>~
+                        <time datetime="2018-03-01">2018.03.01</time> ~
                         <time datetime="2020-02-27">2020.02.27</time>
                     </dd>
                     <dd>고려대학교 정보대학</dd>
@@ -29,7 +45,7 @@ layout: default
                 <dl>
                     <dt>정보통신공학심화 공학사</dt>
                     <dd>
-                        <time datetime="2014-03-01">2014.03.01</time>~
+                        <time datetime="2014-03-01">2014.03.01</time> ~
                         <time datetime="2018-02-02">2018.02.02</time>
                     </dd>
                     <dd>영남대학교 기계IT대학</dd>
@@ -77,7 +93,7 @@ layout: default
                 <dl>
                     <dt>학업성적우수 장학금</dt>
                     <dd>
-                        <time datetime="2014">2014</time>~
+                        <time datetime="2014">2014</time> ~
                         <time datetime="2017">2017</time>
                     </dd>
                     <dd>영남대학교</dd>
@@ -87,7 +103,7 @@ layout: default
                 <dl>
                     <dt>SL서봉재단 학업보조 장학금</dt>
                     <dd>
-                        <time datetime="2016">2016</time>~
+                        <time datetime="2016">2016</time> ~
                         <time datetime="2017">2017</time>
                     </dd>
                     <dd>SL서봉재단</dd>
@@ -168,12 +184,14 @@ layout: default
             <h6>{{ year }}</h6>
 
             {%- comment -%}
-            <!-- iterate experiences -->{%- endcomment -%}
+            <!-- iterate experiences -->
+            {%- endcomment -%}
             {%- for exp in exps -%}
             {%- assign y = exp.date | date: "%Y"  -%}
 
             {%- comment -%}
-            <!-- check if different post of year -->{%- endcomment -%}
+            <!-- check if different post of year -->
+            {%- endcomment -%}
             {%- if year == y -%}
             {%- assign isNewYear = false -%}
             {%- else -%}
@@ -182,7 +200,8 @@ layout: default
             {%- endif -%}
 
             {%- comment -%}
-            <!-- start new list with new year -->{%- endcomment -%}
+            <!-- start new list with new year -->
+            {%- endcomment -%}
             {%- if isNewYear -%}
         </section>
         <section>

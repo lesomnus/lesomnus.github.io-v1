@@ -2,6 +2,8 @@
 layout: post-experience
 title: CLade
 sub: Container Image Dependency Management Tool
+refs:
+    github: https://github.com/lesomnus/clade
 categories: [experiences]
 meta:
     languages: [Go]
@@ -9,11 +11,6 @@ meta:
 ---
 
 <p>
-	In the self-driving shuttle project for airport users at Incheon International Airport, I developed modules for
-	sensor acquisition, multi-sensor data integration, and service status management.
+	This project was developed in private time as a need to automate the maintenance of the latest version of various
+	development environments at work. With information about which base images it depends on, CLade builds a dependency tree. Starting from the base image of the root node, if the latest tag is found in the remote registry or if the layer has been changed in the existing tag, it helps to build the child image.
 </p>
-
-<h3>Press</h3>
-<ul>
-	<li><a href="https://www.etnews.com/20201014000216">인천공항, 실내 자율주행 전동차·카트로봇 시범 도입</a></li>
-</ul>

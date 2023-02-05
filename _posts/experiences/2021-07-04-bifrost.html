@@ -4,10 +4,18 @@ title: Bifrost
 sub: Code Interview Management System
 categories: [experiences]
 meta:
-languages: [TypeSCript, Go]
-platforms: [Redis, Docker, PostgreSQL, Kubernetes]
-thirdParties: [gRPC, React, Vite]
+    languages: [TypeScript, Go]
+    platforms: [Redis, Docker, PostgreSQL, Kubernetes]
+    thirdParties: [gRPC, React, Vite]
 ---
+
+<p>
+	This project was developed in private time and contributed to the company in order to efficiently manage the
+	increasing demand for interviews at work. It implements two <abbr title="Single Page Application">SPA</abbr>, one
+	for the interviewer and one for the interviewee, and includes a mailing feature to notify to the participant that
+	the interview has started, ended, or a deadline is approaching. The interviewer can submit the code and check the
+	execution result and whether or not the answer is correct in real time.
+</p>
 
 {%- capture attPath -%}{%- include get-att-path.html fd=page -%}{%- endcapture -%}
 
@@ -28,11 +36,12 @@ thirdParties: [gRPC, React, Vite]
 </div>
 
 <p>
-	This project was developed in private time and contributed to the company in order to efficiently manage the
-	increasing demand for interviews at work. It implements two <abbr title="Single Page Application">SPA</abbr>, one
-	for the interviewer and one for the interviewee, and includes a mailing feature to notify to the participant that
-	the interview has started, ended, or a deadline is approaching. The interviewer can submit the code and check the
-	execution result and whether or not the answer is correct in real time.
+	The server process does not store local information and implements all functions to depend on the atomic operation
+	of the DB and message queue to prevent duplication of work and build a scalable system. In other words, the API
+	server and the agent server that runs the user code can scale-out as much as the scalability guaranteed by the DB.
+	In addition, in order to prevent security issues and server resource exhaustion caused by the execution of
+	user-submitted code, a container is created to execute user code at the moment a user request occurs and the user
+	code is executed in it. This allows applications to be deployed in the cloud, throttling server resources as needed.
 </p>
 
 <div class="mermaid">
@@ -54,12 +63,3 @@ thirdParties: [gRPC, React, Vite]
 	end
 	Agent-- Named Pipe ---Worker
 </div>
-
-<p>
-	The server process does not store local information and implements all functions to depend on the atomic operation
-	of the DB and message queue to prevent duplication of work and build a scalable system. In other words, the API
-	server and the agent server that runs the user code can scale-out as much as the scalability guaranteed by the DB.
-	In addition, in order to prevent security issues and server resource exhaustion caused by the execution of
-	user-submitted code, a container is created to execute user code at the moment a user request occurs and the user
-	code is executed in it. This allows applications to be deployed in the cloud, throttling server resources as needed.
-</p>

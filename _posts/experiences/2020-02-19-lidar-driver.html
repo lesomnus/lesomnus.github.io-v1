@@ -1,0 +1,29 @@
+---
+layout: post-experience
+title: Lidar Driver
+categories: [experiences]
+meta:
+    languages: [C++]
+---
+<p>
+    Drivers officially provided by lidar manufacturers already exist, but they need to be implemented by ourselves for
+    performance reasons or to add custom features. In particular, in the case of the latter, if the feature is
+    integrated in the parsing process, it can be implemented at zero-cost. In addition, since the specifications of raw
+    data are different for each lidar model, the maintenance cost incurred when adding support for a new model was also
+    high.
+</p>
+
+{%- capture attPath -%}{%- include get-att-path.html fd=page -%}{%- endcapture -%}
+
+<figure>
+    <img src="{{ attPath }}/benchmark.svg" />
+    <figcaption>Benchmark, Less is better</figcaption>
+</figure>
+
+<p>
+    I generalized the interface to access lidar data and matched the unique pattern of the input data to the
+    pre-specified model, updating only the library version and implementing it so that no changes to the existing code
+    were required. In addition, it minimizes the cost of dynamic allocation by using the packet memory space allocated
+    from the network stack as it is, and writes the code in a way that is advantageous for fast memory access and uses
+    SIMD instructions, resulting in 3 times faster than the official driver.
+</p>

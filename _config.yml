@@ -1,5 +1,8 @@
 title: lesomnus
 email: lesomnus@gmail.com
+plugins: [jekyll-mermaid]
 sass:
   sass_dir: assets/styles
   style: compressed
+mermaid:
+  src: "/assets/js/vendor/mermaid/9.3.0/mermaid.min.js"

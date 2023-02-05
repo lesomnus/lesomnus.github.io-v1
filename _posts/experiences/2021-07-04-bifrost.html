@@ -1,0 +1,65 @@
+---
+layout: post-experience
+title: Bifrost
+sub: Code Interview Management System
+categories: [experiences]
+meta:
+    languages: [TypeSCript, Go]
+    platforms: [Redis, Docker, PostgreSQL, Kubernetes]
+    thirdParties: [gRPC, React, Vite]
+---
+
+{%- capture attPath -%}{%- include get-att-path.html fd=page -%}{%- endcapture -%}
+
+<div style="display: flex; justify-content:space-around; gap: 2em">
+	<div>
+		<figure>
+			<img src="{{ attPath }}/interviewee.jpeg" />
+			<figcaption>Interviewee Page</figcaption>
+		</figure>
+	</div>
+
+	<div>
+		<figure>
+			<img src="{{ attPath }}/interviewer.jpeg" />
+			<figcaption>Interviewer Page</figcaption>
+		</figure>
+	</div>
+</div>
+
+<p>
+	This project was developed in private time and contributed to the company in order to efficiently manage the
+	increasing demand for interviews at work. It implements two <abbr title="Single Page Application">SPA</abbr>, one
+	for the interviewer and one for the interviewee, and includes a mailing feature to notify to the participant that
+	the interview has started, ended, or a deadline is approaching. The interviewer can submit the code and check the
+	execution result and whether or not the answer is correct in real time.
+</p>
+
+{% mermaid %}
+flowchart LR
+User--http---Envoy
+
+subgraph Control ["API Server"]
+rest_api["REST API"] & grpc_api["gRPC API"] --- Controller
+end
+Envoy---rest_api & grpc_api
+
+Controller---DB[(PostgreSQL)] & Redis
+
+DB---Agent
+Redis---Agent
+
+subgraph Docker
+Worker
+end
+Agent-- Named Pipe ---Worker
+{% endmermaid %}
+
+<p>
+	The server process does not store local information and implements all functions to depend on the atomic operation
+	of the DB and message queue to prevent duplication of work and build a scalable system. In other words, the API
+	server and the agent server that runs the user code can scale-out as much as the scalability guaranteed by the DB.
+	In addition, in order to prevent security issues and server resource exhaustion caused by the execution of
+	user-submitted code, a container is created to execute user code at the moment a user request occurs and the user
+	code is executed in it. This allows applications to be deployed in the cloud, throttling server resources as needed.
+</p>

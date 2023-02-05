@@ -4,9 +4,9 @@ title: Bifrost
 sub: Code Interview Management System
 categories: [experiences]
 meta:
-    languages: [TypeSCript, Go]
-    platforms: [Redis, Docker, PostgreSQL, Kubernetes]
-    thirdParties: [gRPC, React, Vite]
+languages: [TypeSCript, Go]
+platforms: [Redis, Docker, PostgreSQL, Kubernetes]
+thirdParties: [gRPC, React, Vite]
 ---
 
 {%- capture attPath -%}{%- include get-att-path.html fd=page -%}{%- endcapture -%}
@@ -35,25 +35,25 @@ meta:
 	execution result and whether or not the answer is correct in real time.
 </p>
 
-{% mermaid %}
-flowchart LR
-User--http---Envoy
+<div class="mermaid">
+	flowchart LR
+	User--http---Envoy
 
-subgraph Control ["API Server"]
-rest_api["REST API"] & grpc_api["gRPC API"] --- Controller
-end
-Envoy---rest_api & grpc_api
+	subgraph Control ["API Server"]
+	rest_api["REST API"] & grpc_api["gRPC API"] --- Controller
+	end
+	Envoy---rest_api & grpc_api
 
-Controller---DB[(PostgreSQL)] & Redis
+	Controller---DB[(PostgreSQL)] & Redis
 
-DB---Agent
-Redis---Agent
+	DB---Agent
+	Redis---Agent
 
-subgraph Docker
-Worker
-end
-Agent-- Named Pipe ---Worker
-{% endmermaid %}
+	subgraph Docker
+	Worker
+	end
+	Agent-- Named Pipe ---Worker
+</div>
 
 <p>
 	The server process does not store local information and implements all functions to depend on the atomic operation

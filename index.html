@@ -56,30 +56,18 @@ layout: default
     </section>
 
     <section>
-        <h2>Conference Presentation</h2>
-        {%- assign pubs = site.data.cv.pub -%}
-        <ul>
-            {%- for pub in pubs -%}
-            <li>
-                {{ pub.authors | join: ", " }},
-                <em>"{{ pub.title }}"</em>,
-                {{ pub.publisher }},
-                {%- if pub.pages -%}
-                Vol.{{ pub.volume }}, Issue {{ pub.number }}.
-                <time datetime="{{ pub.year }}">{{ pub.year }}</time>.
-                pp.{{ pub.pages | join: "-" }}.
-                {% else %}
-                <time datetime="{{ pub.year }}">{{ pub.year }}</time>. (Accepted)
-                {%- endif -%}
-            </li>
-            {%- endfor -%}
-        </ul>
-    </section>
-
-    <section>
         <h2>Honors and Awards</h2>
 
         <ul class="dl-table">
+            <li>
+                <dl>
+                    <dt>Employee of the Year</dt>
+                    <dd>
+                        <time datetime="2022">2022</time>
+                    </dd>
+                    <dd>ThorDrive</dd>
+                </dl>
+            </li>
             <li>
                 <dl>
                     <dt>Best Poster Runner-up</dt>
@@ -131,19 +119,40 @@ layout: default
     </section>
 
     <section>
+        <h2>Conference Presentation</h2>
+        {%- assign pubs = site.data.cv.pub -%}
+        <ul>
+            {%- for pub in pubs -%}
+            <li>
+                {{ pub.authors | join: ", " }},
+                <em>"{{ pub.title }}"</em>,
+                {{ pub.publisher }},
+                {%- if pub.pages -%}
+                Vol.{{ pub.volume }}, Issue {{ pub.number }}.
+                <time datetime="{{ pub.year }}">{{ pub.year }}</time>.
+                pp.{{ pub.pages | join: "-" }}.
+                {% else %}
+                <time datetime="{{ pub.year }}">{{ pub.year }}</time>. (Accepted)
+                {%- endif -%}
+            </li>
+            {%- endfor -%}
+        </ul>
+    </section>
+
+    <section>
         <h2>Technical Skills</h2>
         <dl>
             <dt>Languages</dt>
             <dd>
-                {{ "C,C++14,C#,Go,JavaScript,TypeScript,Java,HTML,CSS,SASS" | split: "," | sort | join: " • " }}
+                {{ "C,C++,Go,TypeScript" | split: "," | sort | join: " • " }}
             </dd>
             <dt>Platforms</dt>
             <dd>
-                {{ ".NET,Android,Docker,Kubernetes,MongoDB,Tizen,CircleCI,Redis,Node.js,MySQL,npm,Kafka" | split: "," | sort | join: " • " }}
+                {{ "ROS,Docker,Kubernetes,WebRTC" | split: "," | sort | join: " • " }}
             </dd>
             <dt>Third-parties</dt>
             <dd>
-                {{ "Babel,Bootstrap,Docker SDK,Express,gRPC,Gulp,jQuery,Lodash,OpenCV,Protocol Buffers,Semantic UI,Socket.io,Vue.js,React,Redux,webpack" | split: "," | sort | join: " • " }}
+                {{ "Helm,gRPC,Protocol Buffers,React,Vite" | split: "," | sort | join: " • " }}
             </dd>
         </dl>
     </section>
@@ -187,7 +196,7 @@ layout: default
             <!-- iterate experiences -->
             {%- endcomment -%}
             {%- for exp in exps -%}
-            {%- assign y = exp.date | date: "%Y"  -%}
+            {%- assign y = exp.date | date: "%Y" -%}
 
             {%- comment -%}
             <!-- check if different post of year -->
@@ -207,7 +216,7 @@ layout: default
         <section>
             <h6>{{ year }}</h6>
             {%- endif -%}
-            <article {% if exp.tags.size > 0 %} data-tags='{{ exp.tags | join: "," }}' {% for tag in exp.tags %}
+            <article {% if exp.tags.size> 0 %} data-tags='{{ exp.tags | join: "," }}' {% for tag in exp.tags %}
                 {%- if tag == 'term-project' -%} class="d-none" {% break %} {%- endif -%} {% endfor %} {% endif %}>
                 <header>
                     <h5 class="title">
@@ -247,7 +256,7 @@ layout: default
                     </ul>
                     {%- endif -%}
                 </header>
-                {{ exp.excerpt  }}
+                {{ exp.excerpt }}
             </article>
             {%- endfor -%}
         </section>
